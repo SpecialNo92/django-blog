@@ -1,0 +1,12 @@
+Hello {{ user.get_username }}
+
+It seems like you registered on website - {{ site_name }}
+
+
+To complete registration you must activate your account to confirm your email
+To do that, please click the link below to activate your account:
+{{ protocol }}://{{ domain }}{% url 'user-auth:activate' uid token %}
+
+
+------------------------------------
+If you didn't register on this page, ignore this message

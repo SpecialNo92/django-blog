@@ -1,0 +1,17 @@
+{% extends parent_template|default:"blog/base_blog.html" %}
+
+{% block website-title %} Delete Post - {{ block.super }} {% endblock %}
+
+{% block content %}
+    <form role="form" action="" method="post">
+    {% csrf_token %}
+    <legend>Are you sure you want to delete this post?</legend>
+
+    <div class="form-group">
+        <a href="{% url 'home' %}" class="btn btn-info">Not sure yet</a>
+        <button type="submit" class="btn btn-danger">I'm sure, remove post</button>
+    </div>
+
+    </form>
+
+{% endblock %}

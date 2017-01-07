@@ -1,0 +1,15 @@
+{% extends parent_template|default:"user/base_user_forms.html" %}
+{% load bootstrap_form %}
+
+{% block website-title %} Registration - {{ block.super }} {% endblock %}
+{% block page-title %} Registration {% endblock %}
+
+{% block content %}
+    <form role="form" action="{% url 'user-auth:register' %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form %}
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Create account</button>
+        </div>
+    </form>
+{% endblock %}

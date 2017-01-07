@@ -1,0 +1,4 @@
+# base.txt
+Django==1.10.4
+psycopg2
+Pillow

@@ -1,0 +1,13 @@
+{% load bootstrap_form %}
+
+{{ form.non_field_errors }}
+{% for field in form %}
+    <div class="form-group">
+        {{ field.errors }}
+        {{ field.label_tag }}
+        {{ field|addcss:"form-control" }}
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+{% endfor %}

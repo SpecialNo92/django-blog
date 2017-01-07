@@ -1,0 +1,52 @@
+{% for post in post_list %}
+<article class="blog-post">
+    <h2>
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </h2>
+    <p> <span class="glyphicon glyphicon-list"></span>
+        Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a>
+    </p>
+    <p><span class="glyphicon glyphicon-calendar"></span> Posted on {{ post.date_added|date:"F d, Y" }} at {{ post.date_added|date:"G:i" }}</p>
+    {% if post.tag_list.count %}
+    <p>
+        <span class="glyphicon glyphicon-tag"></span> Tags:
+        {% for tag in post.tag_list.all %} <a href="{{ tag.get_absolute_url }}" class="label label-primary">{{ tag.name }}</a> {% endfor %}
+    </p>
+    {% endif %}
+        {% if perms.blog.edit_post %}
+        <a href="{{ post.get_update_url }}" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span> Edit </a>
+        {% endif %}
+
+        {% if perms.blog.remove_post%}
+        <a href="{{ post.get_delete_url }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </a>
+        {% endif %}
+
+    {% if post.image %}
+        <img class="img-responsive article-image" src="{{ post.image.url }}" alt="">
+    {% else %}
+    <hr>
+    {% endif %}
+
+    <p>{{ post.text|truncatewords:30 }}</p>
+    <a class="btn btn-primary" href="{{ post.get_absolute_url }}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+</article>
+{% endfor %}
+
+
+{% if is_paginated %}
+    <ul class="pager">
+
+    {% if page_obj.has_previous %}
+        <li class="previous">
+            <a href="?page={{ page_obj.previous_page_number }}">&larr; Newer</a>
+        </li>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+        <li class="next">
+            <a href="?page={{ page_obj.next_page_number }}"> Older &rarr;</a>
+        </li>
+    {% endif %}
+    </ul>
+{% endif %}
+

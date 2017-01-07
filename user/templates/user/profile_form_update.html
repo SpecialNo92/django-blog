@@ -1,0 +1,21 @@
+{% extends parent_template|default:"user/base_user_forms.html" %}
+{% load bootstrap_form %}
+
+{% block website-title %} Update your profile - {{ block.super }} {% endblock %}
+{% block page-title %} Update your profile {% endblock %}
+
+{% block content %}
+    <form role="form" action="{{ profile.get_update_url }}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form user_form %}
+
+        <hr>
+
+        <p>Additional info:</p>
+        {% bootstrap_form profile_form %}
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+{% endblock %}

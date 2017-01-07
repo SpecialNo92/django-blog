@@ -1,0 +1,17 @@
+{% extends parent_template|default:"user/base_user_forms.html" %}
+{% load bootstrap_form %}
+
+{% block website-title %} Resend Activation Link - {{ block.super }} {% endblock %}
+{% block page-title %} Resend Activation Link {% endblock %}
+
+{% block content %}
+    <form role="form" action="{% url 'user-auth:activate_resend' %}" method="post">
+
+        {% csrf_token %}
+        {% bootstrap_form %}
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Resend</button>
+        </div>
+    </form>
+{% endblock %}

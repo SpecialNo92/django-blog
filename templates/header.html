@@ -1,0 +1,56 @@
+<header>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'home' %}">SuperBlog</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{% url 'blog_post_list' %}">Home</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li>
+                       <p class="navbar-text">Hello {{ user.username }}</p>
+                    </li>
+                    <li>
+                        <div class="btn-group">
+                            <p class="btn navbar-btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                Manage profile <span class="caret"></span>
+                            </p>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{% url 'user-auth:profile' %}">View Your Profile</a></li>
+                                <li><a href="{% url 'user-auth:profile_update' %}">Edit Profile</a></li>
+                                <li><a href="{% url 'user-auth:password_change' %}">Change password</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="navbar-btn"><a href="{% url 'user-auth:logout' %}" class="btn btn-danger">Logout</a> </p>
+                    </li>
+                {% else %}
+                    <li>
+                        <p class="navbar-btn"><a href="{% url 'user-auth:login' %}?next={{ request.path }}" class="btn btn-success">Login</a></p>
+                    </li>
+                    <li>
+                        <p class="navbar-btn"><a href="{% url 'user-auth:register' %}" class="btn btn-primary">Register</a> </p>
+                    </li>
+                    <li>
+                        <p class="navbar-btn"><a href="{% url 'user-auth:password_reset' %}" class="btn btn-warning">Forgot password</a></p>
+                    </li>
+                {% endif %}
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>

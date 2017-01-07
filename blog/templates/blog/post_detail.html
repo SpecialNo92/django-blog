@@ -1,0 +1,61 @@
+{% extends parent_template|default:"blog/base_blog.html" %}
+{% load bootstrap_form %}
+
+{% block website-title %} {{ post.title }} - {{ block.super }} {% endblock %}
+
+{% block content %}
+
+<article class="detail-post">
+    <h2>
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </h2>
+    <p> <span class="glyphicon glyphicon-list"></span>
+        Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a>
+    </p>
+    <p><span class="glyphicon glyphicon-user"></span> Posted by <a href="{{ post.author.profile.get_absolute_url }}">{{ post.author }}</a> on {{ post.date_added|date:"F d, Y" }} at {{ post.date_added|date:"G:i" }}</p>
+    <p>
+        <span class="glyphicon glyphicon-tag"></span> Tags:
+        {% for tag in post.tag_list.all %} <a href="{{ tag.get_absolute_url }}" class="label label-primary">{{ tag.name }}</a> {% empty %} No tags {% endfor %}
+    </p>
+        {% if perms.blog.edit_post %}
+        <a href="{{ post.get_update_url }}" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span> Edit </a>
+        {% endif %}
+
+        {% if perms.blog.remove_post%}
+        <a href="{{ post.get_delete_url }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </a>
+        {% endif %}
+
+    {% if post.image %}
+        <img class="img-responsive article-image" src="{{ post.image.url }}" alt="">
+    {% else %}
+    <hr>
+    {% endif %}
+
+    <p>{{ post.text }}</p>
+</article>
+
+    <legend>Comments</legend>
+    {% for comment in post.post_comments.all %}
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>Commented by <a href="{{ comment.author.profile.get_absolute_url }}">{{ comment.author }}</a> </strong> on {{ comment.date_added|date:"F d, Y" }} at {{ comment.date_added|date:"G:i" }}</div>
+      <div class="panel-body">{{ comment.comment }}</div>
+    </div>
+    {% empty %}
+        <p>No comments yet!</p>
+    {% endfor %}
+
+{% if user.is_authenticated %}
+    <form role="form" action="" method="post">
+        {% csrf_token %}
+
+        {% bootstrap_form %}
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-info">Add Comment</button>
+        </div>
+    </form>
+    {% else %}
+        <p>Login to add comments!</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends parent_template|default:"blog/base_blog.html" %}
+{% load post_list %}
+
+{% block website-title %} {{ tag }} Posts - {{ block.super }} {% endblock %}
+
+{% block content %}
+        <h1 class="page-header">
+            Tag - {{ tag }}
+        </h1>
+
+        {% default_post_list %}
+{% endblock %}

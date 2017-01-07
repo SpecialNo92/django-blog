@@ -1,0 +1,20 @@
+{% extends parent_template|default:"blog/base_blog.html" %}
+{% load post_list %}
+
+{% block website-title %} View Posts ( Page {{ page_obj.number }} ) - {{ block.super }} {% endblock %}
+
+{% block content %}
+
+                <h1 class="page-header"> Post List </h1>
+
+                {% if user.is_authenticated %}
+                    {% if perms.blog.user_add_his_post %}
+                <a href="{% url 'blog_post_create' %}" class="btn btn-block btn-info">Add Post</a>
+                    {% endif %}
+                {% endif %}
+
+                {% default_post_list %}
+
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends parent_template|default:"blog/base_blog.html" %}
+{% load bootstrap_form %}
+
+{% block website-title %} Create Post - {{ block.super }} {% endblock %}
+
+{% block content %}
+    <form role="form" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <legend>Add new post</legend>
+
+        {% bootstrap_form %}
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add Post</button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,7 @@
+<div class="well">
+    <h4>Tags</h4>
+            {% for tag in tag_list %}
+                <a href="{{ tag.get_absolute_url }}" class="label label-info tag-big">{{ tag.name }}</a>
+            {% endfor %}
+</div>
+
